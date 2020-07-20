@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './config/i18next-config';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

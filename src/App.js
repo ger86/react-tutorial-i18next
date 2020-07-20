@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
+import logo from "./logo.svg";
+import { useTranslation } from "react-i18next";
+import "./App.css";
 
-function App() {
+function Welcome() {
+  const { t, i18n } = useTranslation(['welcome']);
+
+  function changeToEnglish() {
+    i18n.changeLanguage("en");
+  }
+
+  function changeToSpanish() {
+    i18n.changeLanguage("es");
+  }
+  
+  
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("title", { name: "Gerardo" }),
+          }}
+        />
+        <p>Idioma actual: {i18n.language}</p>
+        <button onClick={changeToEnglish}>Cambiar a inglés</button>
+        <button onClick={changeToSpanish}>Cambiar a español</button>
       </header>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Suspense fallback="Cargando traducciones...">
+      <Welcome />
+    </Suspense>
   );
 }
 
